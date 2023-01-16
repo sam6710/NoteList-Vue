@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto lista</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://kit.fontawesome.com/4328465e5b.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id="vue">
+        <div id="header">
+            <h1>Proyeto Lista Tareas Vue - Samuel Gómez Pérez</h1>
+            <input type="text" id="input" v-model="texto" @keyup.enter="añadirTarea" placeholder="¿Qué quieres recordar?">
+        </div>
+        <hr>
+        <p id="pendientes"><span id="cantidad_pendientes">{{tareasPendientes}} de {{totalTareas}}</span>|<span @click="borrarCompletadas()" id="borrarTareas">Borrar tareas completadas</span></p>
+        <div>
+            <input id="filtro" type="text" placeholder="Búscar tarea" v-model="campoFiltro">
+            <!-- <select v-model="filtroPorPrioridad">
+                <option disabled value="opciones">Elija opción</option>
+                <option value="">Todas</option>
+                <option value="low">Low</option>
+                <option value="normal">Normal</option>
+                <option value="high">High</option>
+            </select> -->
+        </div>
+        <hr>
+        <div id="lista">
+            <ul>
+                <li id="recordatorio" v-for="tarea in tareasFiltradas" :key="tarea.date">
+                    <button id='hecho' :class="{hecho:tarea.completado}" @click="completarNota(tarea)"></button>
+                    <p id="contenido" :class="{completado:tarea.completado}">{{tarea.contenido}}</p>
+                    <div id='prioridades'>
+                        Prioridad:
+                        <button :class="{low:tarea.prioridad==1}" class='prioridad' id='low' @click="cambiarPrioridad(tarea, 1)">↓Low</button>
+                        <button :class="{normal:tarea.prioridad==2}" class='prioridad' id='normal' @click="cambiarPrioridad(tarea, 2)">Normal</button>
+                        <button :class="{high:tarea.prioridad==3}" class='prioridad' id='high' @click="cambiarPrioridad(tarea, 3)">High↑</button>
+                    </div>
+                    <div id='tiempo'>
+                        <p>⌛Añadido hace {{calcularTiempo(tarea)}} minutos</p>
+                    </div>
+                    <i class='fa-solid fa-square-minus' @click="borrarNota(tarea)"></i>
+                </li>
+            </ul>
+        </div>
+        <footer>
+            <p>Desarrollado por Samuel Gómez Pérez</p>
+            <p>Código disponible en <a href="https://github.com/sam6710" id="GitHub" target="_blank">GitHub</a></p>
+        </footer>
+    </div>
+</body>
+
+<script src="./index.js"></script>
+
+</html>
